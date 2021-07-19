@@ -37,6 +37,8 @@ defmodule Feeder do
       tweets
       |> Feeder.Feed.get_feeds(profiles)
       |> Feeder.Feed.to_text()
+    else
+      nil -> {:error, :user_or_tweet_file_missing}
     end
   rescue
     _e in MatchError -> {:error, :invalid_files_provided}

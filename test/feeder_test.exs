@@ -24,15 +24,15 @@ defmodule FeederTest do
   ]
 
   describe "get_feeds_as_text/1" do
-    test "giving no files will return nil" do
-      assert Feeder.get_feeds_as_text([]) == nil
+    test "giving no files will returns error" do
+      assert Feeder.get_feeds_as_text([]) == {:error, :user_or_tweet_file_missing}
     end
 
-    test "giving files with different names returns nil" do
+    test "giving files with different names returns error" do
       assert Feeder.get_feeds_as_text([
                %Feeder.File{name: "other.txt", content: "some"},
                %Feeder.File{name: "some.txt", content: "other"}
-             ]) == nil
+             ]) == {:error, :user_or_tweet_file_missing}
     end
 
     test "giving files with incorrect expected context will return error tuple" do
