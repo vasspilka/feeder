@@ -5,7 +5,7 @@ defmodule Feeder do
   """
   use TypedStruct
 
-  alias Feeder.{Feed, Parser, Profile}
+  alias Feeder.{Parser, Profile}
 
   typedstruct module: File do
     field(:path, binary())
@@ -24,7 +24,7 @@ defmodule Feeder do
   @typedoc "Tweet is represented by a name, tweet text tuple."
   @type tweet() :: {username(), binary()}
 
-  @spec get_feeds_as_text([Feeder.File.t()]) :: binary()
+  @spec get_feeds_as_text([Feeder.File.t()]) :: binary() | nil | {:error, atom()}
   @doc "Creates the text to display from file uploads."
   def get_feeds_as_text(files) do
     with %Feeder.File{content: user_txt} <-
@@ -38,5 +38,8 @@ defmodule Feeder do
       |> Feeder.Feed.get_feeds(profiles)
       |> Feeder.Feed.to_text()
     end
+  rescue
+    _e in MatchError -> {:error, :invalid_files_provided}
+    _e -> {:error, :unknown_error}
   end
 end

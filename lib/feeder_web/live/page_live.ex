@@ -47,7 +47,7 @@ defmodule FeederWeb.PageLive do
     <div class="mt-10">
       <h1 class="text-center text-xl">Output:</h1>
       <div class="mt-4">
-        <div class="pre-wrap"><%= Feeder.get_feeds_as_text(@file_uploads) %></div>
+        <div class="pre-wrap"><%= display_output(Feeder.get_feeds_as_text(@file_uploads)) %></div>
       </div>
     </div>
     """
@@ -80,4 +80,7 @@ defmodule FeederWeb.PageLive do
   def handle_event("file-update", _params, socket) do
     {:noreply, socket}
   end
+
+  defp display_output({:error, error}), do: "Error: #{error}"
+  defp display_output(txt), do: txt
 end

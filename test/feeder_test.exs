@@ -35,13 +35,11 @@ defmodule FeederTest do
              ]) == nil
     end
 
-    test "giving files with incorrect expected context will crash the app" do
-      assert_raise MatchError, fn ->
-        Feeder.get_feeds_as_text([
-          %Feeder.File{name: "user.txt", content: "here is some none related text"},
-          %Feeder.File{name: "tweet.txt", content: "likewise"}
-        ])
-      end
+    test "giving files with incorrect expected context will return error tuple" do
+      assert Feeder.get_feeds_as_text([
+               %Feeder.File{name: "user.txt", content: "here is some none related text"},
+               %Feeder.File{name: "tweet.txt", content: "likewise"}
+             ]) == {:error, :invalid_files_provided}
     end
 
     test "giving valid file uploads will produce the correct output" do
