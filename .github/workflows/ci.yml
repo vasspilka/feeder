@@ -53,8 +53,6 @@ jobs:
         run: mix compile --warnings-as-errors
         env:
           MIX_ENV: test
-          POSTGRES_USERNAME: postgres
-          POSTGRES_PASSWORD: postgres
 
   unit_tests:
     name: Unit Tests
@@ -67,15 +65,6 @@ jobs:
         otp: [23.2]
         elixir: [1.11.3]
         node: [15.8.0]
-    services:
-      db:
-        image: postgres:11
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports: ["5432:5432"]
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.6.0
@@ -105,21 +94,10 @@ jobs:
             ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-
             ${{ runner.os }}-
 
-      - name: Setup DB
-        run: |
-          mix ecto.create
-          mix ecto.migrate
-        env:
-          MIX_ENV: test
-          POSTGRES_USERNAME: postgres
-          POSTGRES_PASSWORD: postgres
-
       - name: Run test
         run: mix test
         env:
           MIX_ENV: test
-          POSTGRES_USERNAME: postgres
-          POSTGRES_PASSWORD: postgres
 
   static_code_analysis:
     name: Static Code Analysis
