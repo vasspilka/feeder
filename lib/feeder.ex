@@ -7,7 +7,7 @@ defmodule Feeder do
 
   alias Feeder.{Feed, Parser, Profile}
 
-  typedstruct module: FileUpload do
+  typedstruct module: File do
     field(:path, binary())
     field(:name, binary(), enforce: true)
     field(:content, binary(), enforce: true)
@@ -24,12 +24,12 @@ defmodule Feeder do
   @typedoc "Tweet is represented by a name, tweet text tuple."
   @type tweet() :: {username(), binary()}
 
-  @spec get_feeds_as_text([FileUpload.t()]) :: binary()
-  @doc "Creates the text to display from "
+  @spec get_feeds_as_text([Feeder.File.t()]) :: binary()
+  @doc "Creates the text to display from file uploads."
   def get_feeds_as_text(files) do
-    with %FileUpload{content: user_txt} <-
+    with %Feeder.File{content: user_txt} <-
            Enum.find(files, &String.starts_with?(&1.name, "user")),
-         %FileUpload{content: tweets_txt} <-
+         %Feeder.File{content: tweets_txt} <-
            Enum.find(files, &String.starts_with?(&1.name, "tweet")) do
       profiles = Parser.parse_profiles(user_txt)
       tweets = Parser.parse_tweets(tweets_txt)

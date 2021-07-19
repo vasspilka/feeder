@@ -1,6 +1,8 @@
 defmodule FeederWeb.PageLive do
+  @moduledoc """
+  Main page for app.
+  """
   use FeederWeb, :live_view
-  alias Feeder.FileUpload
 
   @impl true
   def render(assigns) do
@@ -65,7 +67,7 @@ defmodule FeederWeb.PageLive do
     uploads =
       socket
       |> consume_uploaded_entries(:txt, fn %{path: path}, entry ->
-        %FileUpload{
+        %Feeder.File{
           path: path,
           name: entry.client_name,
           content: File.read!(path)

@@ -1,4 +1,8 @@
 defmodule FeederWeb.Telemetry do
+  @moduledoc """
+  Project Telemetry
+  """
+
   use Supervisor
   import Telemetry.Metrics
 

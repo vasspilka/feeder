@@ -1,10 +1,8 @@
 defmodule FeederTest do
   use ExUnit.Case
 
-  alias Feeder.FileUpload
-
   @sample_files [
-    %FileUpload{
+    %Feeder.File{
       name: "user.txt",
       content: """
       Michael follows Vitalik, Kent
@@ -13,7 +11,7 @@ defmodule FeederTest do
       Vitalik follows Veronica
       """
     },
-    %FileUpload{
+    %Feeder.File{
       name: "tweet.txt",
       content: """
       Vitalik> Things like tornado cash and uniswap, kyber and the like are successful in part because they are just tools that people can put into their existing workflows, and not ecosystems. We need more tools that are content with being tools and fewer attempts at ecosystems.
@@ -32,16 +30,16 @@ defmodule FeederTest do
 
     test "giving files with different names returns nil" do
       assert Feeder.get_feeds_as_text([
-               %FileUpload{name: "other.txt", content: "some"},
-               %FileUpload{name: "some.txt", content: "other"}
+               %Feeder.File{name: "other.txt", content: "some"},
+               %Feeder.File{name: "some.txt", content: "other"}
              ]) == nil
     end
 
     test "giving files with incorrect expected context will crash the app" do
       assert_raise MatchError, fn ->
         Feeder.get_feeds_as_text([
-          %FileUpload{name: "user.txt", content: "here is some none related text"},
-          %FileUpload{name: "tweet.txt", content: "likewise"}
+          %Feeder.File{name: "user.txt", content: "here is some none related text"},
+          %Feeder.File{name: "tweet.txt", content: "likewise"}
         ])
       end
     end
