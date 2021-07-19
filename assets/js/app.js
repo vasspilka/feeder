@@ -1,5 +1,6 @@
 // We import css extracted from esbuild.
 import "phoenix_html"
+import "./react/app.js"
 import {Socket} from "phoenix"
 import topbar from "topbar"
 import {LiveSocket} from "phoenix_live_view"
