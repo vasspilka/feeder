@@ -1,12 +1,6 @@
 defmodule FeederWeb.PageLive do
   use FeederWeb, :live_view
-  use TypedStruct
-
-  typedstruct module: FileUpload do
-    field(:path, binary(), enforce: true)
-    field(:name, binary(), enforce: true)
-    field(:content, binary(), enforce: true)
-  end
+  alias Feeder.FileUpload
 
   @impl true
   def render(assigns) do
@@ -22,9 +16,9 @@ defmodule FeederWeb.PageLive do
         <section class="h-48 bg-green-100 flex items-end  place-content-end"  phx-drop-target="<%= @uploads.txt.ref %>">
           <%= live_file_input @uploads.txt, class: "flex-grow self-start" %>
           <%= for entry <- @uploads.txt.entries do %>
-            <article class="upload-entry">
+            <article>
               <figure>
-                <figcaption><%= entry.client_name %></figcaption>
+                <figcaption class="mr-2"><%= entry.client_name %></figcaption>
               </figure>
 
               <%# Phoenix.LiveView.Helpers.upload_errors/2 returns a list of error atoms %>
@@ -42,10 +36,17 @@ defmodule FeederWeb.PageLive do
       <h1 class="text-center text-xl">Uploaded Files:</h1>
       <%= for file <- @file_uploads do %>
         <div class="mt-4">
-          <div class="text-center"><%= file.name %></div>
-          <div class="text-center mt-2"><%= file.content %></div>
+          <div class="pre-wrap"><%= file.name %></div>
+          <div class="pre-wrap mt-2"><%= file.content %></div>
         </div>
       <% end %>
+    </div>
+
+    <div class="mt-10">
+      <h1 class="text-center text-xl">Output:</h1>
+      <div class="mt-4">
+        <div class="pre-wrap"><%= Feeder.get_feeds_as_text(@file_uploads) %></div>
+      </div>
     </div>
     """
   end
@@ -60,7 +61,7 @@ defmodule FeederWeb.PageLive do
   end
 
   @impl true
-  def handle_event("put-files", params, socket) do
+  def handle_event("put-files", _params, socket) do
     uploads =
       socket
       |> consume_uploaded_entries(:txt, fn %{path: path}, entry ->
