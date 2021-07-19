@@ -7,9 +7,6 @@
 # General application configuration
 use Mix.Config
 
-config :feeder,
-  ecto_repos: [Feeder.Repo]
-
 # Configures the endpoint
 config :feeder, FeederWeb.Endpoint,
   url: [host: "localhost"],

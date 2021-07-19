@@ -18,8 +18,6 @@ defmodule Feeder.DataCase do
 
   using do
     quote do
-      alias Feeder.Repo
-
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
@@ -28,12 +26,6 @@ defmodule Feeder.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Feeder.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Feeder.Repo, {:shared, self()})
-    end
-
     :ok
   end
 

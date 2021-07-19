@@ -35,7 +35,6 @@ defmodule Feeder.MixProject do
     [
       {:credo, "~> 1.3", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
-      {:ecto_sql, "~> 3.4"},
       {:esbuild, "~> 0.1", runtime: Mix.env() == :dev},
       {:floki, ">= 0.30.0", only: :test},
       {:jason, "~> 1.0"},
@@ -46,7 +45,6 @@ defmodule Feeder.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.15.1"},
       {:plug_cowboy, "~> 2.0"},
-      {:postgrex, ">= 0.0.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:typed_struct, "~> 0.2.1"}
@@ -61,10 +59,7 @@ defmodule Feeder.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "cmd --cd assets npm install"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      setup: ["deps.get", "cmd --cd assets npm install"],
       "assets.deploy": [
         "esbuild default --minify",
         "cmd --cd assets npm run deploy",
