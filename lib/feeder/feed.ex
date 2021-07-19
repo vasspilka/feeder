@@ -6,7 +6,7 @@ defmodule Feeder.Feed do
   @typedoc "Feed is a structure that contains all feed items of a user."
   @type t() :: {Feeder.username(), [Feeder.tweet()]}
 
-  @doc "Given a list of tweets and profiles will return a list of feeds"
+  @doc "Given a list of tweets and profiles will return a list of feeds."
   @spec get_feeds([Feeder.tweet()], [Feeder.Profile.t()]) :: [Feeder.Feed.t()]
   def get_feeds(tweets, profiles) do
     indexed_followers =
@@ -27,9 +27,11 @@ defmodule Feeder.Feed do
     |> Enum.into([])
   end
 
-  @spec to_text([t()]) :: binary()
+  @doc "Transforms feeds into text."
+  @spec to_text(t() | [t()]) :: binary()
   def to_text(feeds) do
     feeds
+    |> List.wrap()
     |> Enum.sort_by(&elem(&1, 0))
     |> Enum.map(fn {user, tweets} ->
       tweets_txt =

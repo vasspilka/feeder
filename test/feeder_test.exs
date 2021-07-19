@@ -23,7 +23,7 @@ defmodule FeederTest do
     }
   ]
 
-  describe "can create profiles from files" do
+  describe "get_feeds_as_text/1" do
     test "giving no files will return nil" do
       assert Feeder.get_feeds_as_text([]) == nil
     end

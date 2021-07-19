@@ -49,6 +49,11 @@ defmodule Feeder.Parser do
     text
     |> String.split("\n")
     |> Enum.reject(&(&1 == ""))
-    |> Enum.map(&List.to_tuple(String.split(&1, "> ")))
+    |> Enum.map(fn line ->
+      # we match to raise error if format not correct
+      [_, _] = tweet = String.split(line, "> ")
+
+      List.to_tuple(tweet)
+    end)
   end
 end
