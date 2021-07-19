@@ -8,8 +8,8 @@ To run locally run the following:
 
   * Install dependencies and settup `mix setup`
   * Start Phoenix endpoint with `mix phx.server`
-  
-  
+
+
 To run the mix task and console output:
 
   * Run `mix parse_files tweet.txt user.txt`

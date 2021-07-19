@@ -37,7 +37,7 @@ defmodule Feeder.Feed do
       tweets_txt =
         tweets
         |> Enum.map(fn {username, tweet} ->
-          "\t" <> "@#{user}: " <> tweet
+          "\t" <> "@#{username}: " <> tweet
         end)
         |> Enum.join("\n")
 

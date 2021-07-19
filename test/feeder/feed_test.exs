@@ -63,7 +63,7 @@ defmodule Feeder.FeedTest do
       ]
 
       assert Feed.to_text(feeds) ==
-               "Michael\n\t@Michael: There are only two hard things in Computer Science: cache invalidation, naming things and off-by-1 errors.\n\t@Michael: Things like tornado cash and uniswap, kyber and the like are successful in part because they are just tools that people can put into their existing workflows, and not ecosystems. We need more tools that are content with being tools and fewer attempts at ecosystems.\n\nVitalik\n\t@Vitalik: Things like tornado cash and uniswap, kyber and the like are successful in part because they are just tools that people can put into their existing workflows, and not ecosystems. We need more tools that are content with being tools and fewer attempts at ecosystems."
+               "Michael\n\t@Michael: There are only two hard things in Computer Science: cache invalidation, naming things and off-by-1 errors.\n\t@Vitalik: Things like tornado cash and uniswap, kyber and the like are successful in part because they are just tools that people can put into their existing workflows, and not ecosystems. We need more tools that are content with being tools and fewer attempts at ecosystems.\n\nVitalik\n\t@Vitalik: Things like tornado cash and uniswap, kyber and the like are successful in part because they are just tools that people can put into their existing workflows, and not ecosystems. We need more tools that are content with being tools and fewer attempts at ecosystems."
     end
   end
 end
